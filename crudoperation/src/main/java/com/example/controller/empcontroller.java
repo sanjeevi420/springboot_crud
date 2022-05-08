@@ -24,8 +24,10 @@ public class empcontroller implements empcontrollerimp {
 		
 	@GetMapping("/employee")
 	@Override
-	public List<employee> getAllBooks()   
+	public List<employee> getAllemployees()   
 	{  
+		System.out.println("All employees data retrived");
+		System.out.println("--------------------------------------------------");
 		return emps.getallemp();  
 	}  
 	
@@ -33,6 +35,8 @@ public class empcontroller implements empcontrollerimp {
 	@Override
 	public employee getemployee(@PathVariable("empid") int empid)   
 	{  
+		System.out.println("The Data of EmpId : "+empid+" retrived");
+		System.out.println("--------------------------------------------------");
 		return emps.getEmployeeById(empid);  
 	}  
 	
@@ -40,6 +44,8 @@ public class empcontroller implements empcontrollerimp {
 	@Override
 	public void deleteEmployee(@PathVariable("empid") int empid)   
 	{  
+		System.out.println("The Data of EmpId : "+empid+" deleted");
+		System.out.println("--------------------------------------------------");
 		emps.delete(empid);  
 	}  
 	
@@ -47,7 +53,10 @@ public class empcontroller implements empcontrollerimp {
 	@Override
 	public int saveEmployee(@RequestBody employee emplo)   
 	{  
+		
 		emps.saveOrUpdate(emplo);
+		System.out.println("The new data is added with EmpId : "+emplo.getEmpid());
+		System.out.println("--------------------------------------------------");
 		return emplo.getEmpid();  
 	} 
 	
@@ -55,7 +64,9 @@ public class empcontroller implements empcontrollerimp {
 	@Override
 	public employee update(@RequestBody employee emplo)   
 	{  
-		emps.saveOrUpdate(emplo);  
+		emps.saveOrUpdate(emplo);
+		System.out.println("The data is updated for EmpId : "+emplo.getEmpid());
+		System.out.println("--------------------------------------------------");
 		return emplo;  
 	}
 
