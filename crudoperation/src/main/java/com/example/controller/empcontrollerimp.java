@@ -9,7 +9,7 @@ import com.example.model.employee;
 
 public interface empcontrollerimp {
 	
-	List<employee> getAllBooks();
+	List<employee> getAllemployees();
 	
 	employee getemployee(@PathVariable("empid") int empid);
 	
