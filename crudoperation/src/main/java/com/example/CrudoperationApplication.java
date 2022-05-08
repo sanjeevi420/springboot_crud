@@ -13,7 +13,9 @@ public class CrudoperationApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CrudoperationApplication.class, args);
-		System.out.println("Started crudopertation....");
+		System.out.println("--------------------------------------------------");
+		System.out.println("Started Employee CRUD opertation....");
+		System.out.println("--------------------------------------------------");
 	}
 
 }
