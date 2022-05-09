@@ -19,34 +19,58 @@ public class empservice implements empserviceimp{
 
 	
 	@Override
-	public List<employee> getallemp(){
-		List<employee> emps = new ArrayList<employee>();  
-		emprep.findAll().forEach(emps1 -> emps.add(emps1));  
-		return emps;  
+	public List<employee> getallemp() throws Exception
+	{
+		List<employee> emps = new ArrayList<employee>();
+		try {  
+			emprep.findAll().forEach(emps1 -> emps.add(emps1));  
+		}catch (Exception e) {
+			throw e;
+		}
+		return emps;
 	}
 	
 	@Override
-	public employee getEmployeeById(int id)   
-	{  
-		return emprep.findById(id).get();  
+	public employee getEmployeeById(int id) throws Exception   
+	{  employee emp=null;
+		try {
+			emp=emprep.findById(id).get();
+		}catch (Exception e) {
+			throw e;
+		}
+		return emp;  
 	}  
 	
 	@Override
-	public void saveOrUpdate(employee emp)   
-	{  
+	public void saveOrUpdate(employee emp) throws Exception   
+	{  try {
 		emprep.save(emp);  
+		}catch (Exception e) {
+			throw e;
+		}
+		
 	}  
 	
 	@Override
-	public void delete(int id)   
+	public void delete(int id) throws Exception   
 	{  
-		emprep.deleteById(id);  
+		try {
+			emprep.deleteById(id);
+		}catch (Exception e) {
+			throw e;
+		}
+		  
 	}  
 	
 	@Override
-	public void update(employee emp, int empid)   
+	public void update(employee emp, int empid) throws Exception 
 	{  
-		emprep.save(emp);  
+		try {
+			emprep.save(emp);  
+		}catch (Exception e) {
+			throw e;
+		}
+		
 	}
 
 }
