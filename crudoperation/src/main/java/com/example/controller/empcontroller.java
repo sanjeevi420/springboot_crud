@@ -26,37 +26,67 @@ public class empcontroller implements empcontrollerimp {
 	@Override
 	public List<employee> getAllemployees()   
 	{  
-		System.out.println("All employees data retrived");
-		System.out.println("--------------------------------------------------");
-		return emps.getallemp();  
+		List<employee> emp =null;
+		try {
+			System.out.println("All employees data retrived");
+			System.out.println("--------------------------------------------------");
+			emp= emps.getallemp(); 
+		}catch (Exception e) {
+			System.out.println("--------------------------------------------------");
+			System.out.println("Controller error is: "+e.getMessage());
+			System.out.println("--------------------------------------------------");
+		}
+		return emp;
+		 
 	}  
 	
 	@GetMapping("/employee/{empid}")
 	@Override
 	public employee getemployee(@PathVariable("empid") int empid)   
 	{  
-		System.out.println("The Data of EmpId : "+empid+" retrived");
-		System.out.println("--------------------------------------------------");
-		return emps.getEmployeeById(empid);  
+		employee emp=null;
+		try {
+			emp=emps.getEmployeeById(empid);
+			System.out.println("The Data of EmpId : "+empid+" retrived");
+			System.out.println("--------------------------------------------------");
+		}catch (Exception e) {
+			System.out.println("--------------------------------------------------");
+			System.out.println("Controller error is: "+e.getMessage());
+			System.out.println("--------------------------------------------------");
+		}
+		return emp;   
 	}  
 	
 	@DeleteMapping("/employee/{empid}")
 	@Override
-	public void deleteEmployee(@PathVariable("empid") int empid)   
+	public void deleteEmployee(@PathVariable("empid") int empid) 
 	{  
-		System.out.println("The Data of EmpId : "+empid+" deleted");
-		System.out.println("--------------------------------------------------");
-		emps.delete(empid);  
+		try {
+			emps.delete(empid); 	
+			System.out.println("The Data of EmpId : "+empid+" deleted");
+			System.out.println("--------------------------------------------------");
+		}catch (Exception e) {
+			System.out.println("--------------------------------------------------");
+			System.out.println("Controller error is: "+e.getMessage());
+			System.out.println("--------------------------------------------------");
+		}
+		
+		 
 	}  
 	
 	@PostMapping("/employees")
 	@Override
 	public int saveEmployee(@RequestBody employee emplo)   
 	{  
-		
-		emps.saveOrUpdate(emplo);
-		System.out.println("The new data is added with EmpId : "+emplo.getEmpid());
-		System.out.println("--------------------------------------------------");
+		try {
+			emps.saveOrUpdate(emplo);
+			System.out.println("The new data is added with EmpId : "+emplo.getEmpid());
+			System.out.println("--------------------------------------------------");
+		}catch (Exception e) {
+			System.out.println("--------------------------------------------------");
+			System.out.println("Controller error is: "+e.getMessage());
+			System.out.println("--------------------------------------------------");
+		}
 		return emplo.getEmpid();  
 	} 
 	
@@ -64,9 +94,16 @@ public class empcontroller implements empcontrollerimp {
 	@Override
 	public employee update(@RequestBody employee emplo)   
 	{  
-		emps.saveOrUpdate(emplo);
-		System.out.println("The data is updated for EmpId : "+emplo.getEmpid());
-		System.out.println("--------------------------------------------------");
+		try {
+			emps.saveOrUpdate(emplo);
+			System.out.println("The data is updated for EmpId : "+emplo.getEmpid());
+			System.out.println("--------------------------------------------------");
+		}catch (Exception e) {
+			System.out.println("--------------------------------------------------");
+			System.out.println("Controller error is: "+e.getMessage());
+			System.out.println("--------------------------------------------------");
+		}
+		
 		return emplo;  
 	}
 
