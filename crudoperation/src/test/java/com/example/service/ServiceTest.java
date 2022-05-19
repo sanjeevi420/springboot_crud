@@ -42,5 +42,12 @@ public class ServiceTest{
     	int epid = empser.saveEmployee(Employee);
     	assertEquals(epid, Employee.getEmpid());
     }
+	
+    @Test
+    public void delEmp() {
+    	employee Employee = new employee(1234,"sam");
+    	int epid = empser.saveEmployee(Employee);
+    	empser.deleteEmployee(epid);
+    }
 }
 
