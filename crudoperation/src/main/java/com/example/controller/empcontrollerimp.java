@@ -17,7 +17,10 @@ public interface empcontrollerimp {
 	
 	int saveEmployee(@RequestBody employee emplo);
 	
-	employee update(@RequestBody employee emplo);   
+	employee update(@RequestBody employee emplo); 
+	
+	ResponseEntity<Resource> downloadFile(@PathVariable("filename") String filename) throws IOException;
 
+	void writeExcel(@RequestParam("file") MultipartFile[] file);
 
 }
