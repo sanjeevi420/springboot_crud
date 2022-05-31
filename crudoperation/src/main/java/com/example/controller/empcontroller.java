@@ -21,6 +21,8 @@ public class empcontroller implements empcontrollerimp {
 	
 	@Autowired
 	empservice emps;
+	
+	excel empex=new excel();
 		
 	@GetMapping("/employee")
 	@Override
@@ -106,5 +108,53 @@ public class empcontroller implements empcontrollerimp {
 		
 		return emplo;  
 	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/toExcel")
+	@Override
+	public void writeExcel(@RequestParam("file") MultipartFile[] file)
+	{
+		Path rootLocation= Paths.get("D:\\");
+		try {
+	         try {
+	            Files.copy(file[0].getInputStream(), rootLocation.resolve("EmpList.xlsx"));
+	            empex.readFromExcel();
+	         } catch (Exception e) {
+	            System.out.println(e.getMessage());
+	         }
+	      } catch (Exception e) {
+	         System.out.println(e.getMessage());
+	      }
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/InExcel/{filename}")
+	@ResponseBody
+	@Override
+	public ResponseEntity<Resource> downloadFile(@PathVariable("filename") String filename) throws IOException {
+        Resource file;
+        Path path;
+			this.writeInExcel();
+			file = excel.download(filename);
+			
+			path =file.getFile().toPath();
+			     
+        return ResponseEntity.ok()
+                             .header(HttpHeaders.CONTENT_TYPE, Files.probeContentType(path))
+                             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+                             .body(file);
+    }
+	
+	public void writeInExcel()
+	{
+		try {
+			List<employee> em = this.getAllemployees();
+			empex.writeExcel(em);
+		}catch (Exception e) {
+			System.out.println(e.getMessage()+"ExcelError");
+		}
+		
+	}
+
 
 }
