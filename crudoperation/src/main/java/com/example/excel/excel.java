@@ -131,37 +131,80 @@ public class excel {
     }
 	
 	
-	public void readFromExcel() throws IOException {
+	public List<employee> readFromExcel() throws Exception {
 		
+		
+		List <employee> em= new ArrayList<employee>(); 
 		File myFile = new File("D://EmpList.xlsx");
         FileInputStream fis = new FileInputStream(myFile);
         XSSFWorkbook myWorkBook = new XSSFWorkbook(fis);
         XSSFSheet mySheet = myWorkBook.getSheetAt(0);
         Iterator<Row> rowIterator = mySheet.iterator();
         while (rowIterator.hasNext()) {
+        	employee emp=new employee();
             Row row = rowIterator.next();
             Iterator<Cell> cellIterator = row.cellIterator();
+            int i=0;
             while (cellIterator.hasNext()) {
-
-                Cell cell = cellIterator.next();
-
-                switch (cell.getCellType()) {
+            	Cell cell = cellIterator.next();
+				switch (cell.getCellType()) {
                 	case STRING:
-                		System.out.print(cell.getStringCellValue().toString() + "\t");
+                		String s = cell.getStringCellValue().toString();
+                		if(i==1) {
+                			emp.setEmpname(s);
+                		}
+                		if(i==3) {
+                			emp.setEmailid(s);
+                		}
+                		if(i==4) {
+                			emp.setLocation(s);
+                		}
+                		if(i==5) {
+                			emp.setUnit(s);
+                		}
+                		if(i==6) {
+                			emp.setProjectcode(s);
+                		}
+                		if(i==8) {
+                			emp.setGender(s);
+                		}
+                		if(i==7) {
+                			Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(s);  
+                			emp.setDob(date1);
+                		}
+                		i++;
                 		break;
                 case NUMERIC:
-                    System.out.print((int)cell.getNumericCellValue() + "\t");
+                	int num = (int)cell.getNumericCellValue();
+                    if(i==0) {
+                        emp.setEmpid(num);
+                    }
+                    if(i==2) {
+                    	emp.setPhno(num);
+                    }
+                    if(i==9) {
+                    	emp.setSalary(num);
+                    }
+                    i++;
                     break;
                 case BOOLEAN:
-                    System.out.print(cell.getBooleanCellValue() + "\t");
+                	boolean b = cell.getBooleanCellValue();
+                    if(i==10) {
+                    	emp.setIsassert(b);
+                    }
+                    i++;
                     break;
                 default :
+                	System.out.println(i+" "+"Default");
+                	break;
              
                 }
-            }
+            } 
             System.out.println("");
-        }  
-	}
+            em.add(emp);
+        }
+		return em;
+	}	
 	
 	
 }
